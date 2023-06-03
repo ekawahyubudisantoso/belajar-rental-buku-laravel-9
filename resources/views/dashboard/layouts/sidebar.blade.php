@@ -8,15 +8,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/blogs*') ? 'active' : '' }}" href="/dashboard/blogs">
+          <a class="nav-link {{ Request::is('dashboard/books*') ? 'active' : '' }}" href="/dashboard/books">
             <span data-feather="book" class="align-text-bottom"></span>
-            Book
+            Books
           </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/blogs*') ? 'active' : '' }}" href="/dashboard/blogs">
+            <a class="nav-link {{ Request::is('dashboard/categories*') ? 'active' : '' }}" href="/dashboard/categories">
               <span data-feather="grid" class="align-text-bottom"></span>
-              Category
+              Categories
             </a>
         </li>
         <li class="nav-item">

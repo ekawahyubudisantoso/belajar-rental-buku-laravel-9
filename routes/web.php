@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BookController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,12 +30,21 @@ Route::post('/logout', [AuthController::class, 'logout']);
 Route::get('/register', [AuthController::class, 'register']);
 Route::post('/register', [AuthController::class, 'registerProcess']);
 
-Route::get('/dashboard', function (){
-    return view('dashboard.index');
-})->middleware('auth');
-
 Route::middleware('auth')->group(function () {
-    Route::get('users/{id}', function ($id) {
-        
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index']);
+    Route::get('/dashboard/books', [BookController::class, 'index']);
+
+    Route::get('/dashboard/categories/checkSlug', [CategoryController::class, 'checkSlug']);
+    Route::get('/dashboard/categories', [CategoryController::class, 'index']);
+    Route::get('/dashboard/categories/create', [CategoryController::class, 'create']);
+    Route::post('/dashboard/categories/create', [CategoryController::class, 'store']);
+    Route::get('/dashboard/categories/edit/{slug}', [CategoryController::class, 'edit']);
+    Route::put('/dashboard/categories/edit/{slug}', [CategoryController::class, 'update']);
+    Route::delete('/dashboard/categories/delete/{slug}', [CategoryController::class, 'destroy']);
+    Route::get('/dashboard/categories/deleted', [CategoryController::class, 'deleted']);
+    Route::get('/dashboard/categories/restore/{slug}', [CategoryController::class, 'restore']);
+    Route::delete('/dashboard/categories/force-delete/{slug}', [CategoryController::class, 'forceDelete']);
+
+    // Route::resource('/dashboard/categories', CategoryController::class);
+
 });
