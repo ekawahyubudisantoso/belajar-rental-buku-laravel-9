@@ -30,3 +30,9 @@ Route::post('/register', [AuthController::class, 'registerProcess']);
 Route::get('/dashboard', function (){
     return view('dashboard.index');
 })->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+    Route::get('users/{id}', function ($id) {
+        
+    });
+});
