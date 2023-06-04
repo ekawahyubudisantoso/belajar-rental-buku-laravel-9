@@ -32,8 +32,15 @@ Route::post('/register', [AuthController::class, 'registerProcess']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
+    
+    //Books
+    Route::get('/dashboard/books/checkSlug', [BookController::class, 'checkSlug']);
     Route::get('/dashboard/books', [BookController::class, 'index']);
+    Route::get('/dashboard/books/create', [BookController::class, 'create']);
+    Route::post('/dashboard/books/create', [BookController::class, 'store']);
+    Route::get('/dashboard/books/edit/{slug}', [BookController::class, 'edit']);
 
+    //Categories
     Route::get('/dashboard/categories/checkSlug', [CategoryController::class, 'checkSlug']);
     Route::get('/dashboard/categories', [CategoryController::class, 'index']);
     Route::get('/dashboard/categories/create', [CategoryController::class, 'create']);

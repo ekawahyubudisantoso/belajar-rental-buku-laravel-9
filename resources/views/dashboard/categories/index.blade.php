@@ -3,21 +3,21 @@
 @section('title', 'Categories')
 
 @section('container')
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">List Categories</h1>
-    </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">List Categories</h1>
+  </div>
 
-    @if (session()->has('success'))
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
+  @if (session()->has('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+  @endif
 
-    <div class="table-responsive">
-        <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>
-        <a href="/dashboard/categories/deleted" class="btn btn-secondary mb-3">View deleted category</a>
-        <table class="table table-striped table-sm">
+  <div class="table-responsive">
+      <a href="/dashboard/categories/create" class="btn btn-primary mb-3">Create new category</a>
+      <a href="/dashboard/categories/deleted" class="btn btn-secondary mb-3">View deleted category</a>
+      <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th scope="col">#</th>
@@ -41,6 +41,6 @@
                 </tr>
             @endforeach
           </tbody>
-        </table>
-      </div>
+      </table>
+  </div>
 @endsection
