@@ -39,6 +39,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/books/create', [BookController::class, 'create']);
     Route::post('/dashboard/books/create', [BookController::class, 'store']);
     Route::get('/dashboard/books/edit/{slug}', [BookController::class, 'edit']);
+    Route::put('/dashboard/books/edit/{slug}', [BookController::class, 'update']);
+    Route::delete('/dashboard/books/delete/{slug}', [BookController::class, 'destroy']);
+    Route::get('/dashboard/books/deleted', [BookController::class, 'deleted']);
+    Route::get('/dashboard/books/restore/{slug}', [BookController::class, 'restore']);
+    Route::delete('/dashboard/books/force-delete/{slug}', [BookController::class, 'forceDelete']);
 
     //Categories
     Route::get('/dashboard/categories/checkSlug', [CategoryController::class, 'checkSlug']);

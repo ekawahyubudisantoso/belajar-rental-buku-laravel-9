@@ -10,9 +10,18 @@
         <h1 class="h2">Edit Book</h1>
     </div>
     <div class="col-lg-4 mb-5">
-        <form action="/dashboard/books/edit/{{ $book->slug }}" method="POST">
+        <form action="/dashboard/books/edit/{{ $book->slug }}" method="POST" enctype="multipart/form-data">
             @method('put')
             @csrf
+            <div class="mb-3">
+                <label for="book_code" class="form-label">Book Code</label>
+                <input type="text" class="form-control @error('book_code') is-invalid @enderror" id="book_code" name="book_code" value="{{ old('book_code', $book->book_code) }}" required autofocus>
+                @error('book_code')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
             <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title', $book->title) }}" required autofocus>
@@ -33,8 +42,9 @@
             </div>
             <div class="mb-3">
                 <label for="image" class="form-label">Cover</label>
+                <input type="hidden" name="oldImage" value="{{ $book->cover }}">
                 @if ($book->cover)
-                    <img src="{{ asset('storage/cover/' . $book->cover) }}" alt="" class="d-block img-preview img-fluid mb-3 col-sm-5">
+                    <img src="{{ asset('storage/' . $book->cover) }}" alt="" class="d-block img-preview img-fluid mb-3 col-sm-5">
                 @else
                     <img src="{{ asset('images/cover-not-available.jpg') }}" alt="" class="d-block img-preview img-fluid mb-3 col-sm-5">
                     {{-- <img class="img-preview img-fluid mb-3 col-sm-5"> --}}
@@ -48,7 +58,7 @@
             </div>
             <div class="mb-3">
                 <label for="category" class="form-label">Category</label>
-                <select class="form-select select-multiple" name="category_id[]" multiple>
+                <select name="category_id[]" class="form-select select-multiple" multiple>
                     @foreach ($categories as $category)
                         @if (old('category_id') == $category->id)
                             <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
@@ -57,6 +67,14 @@
                         @endif
                     @endforeach
                 </select>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Current category</label>
+                <ul>
+                    @foreach ($book->categories as $category)
+                        <li>{{ $category->name }}</li>
+                    @endforeach
+                </ul>
             </div>
             
             <a href="/dashboard/books" class="btn btn-danger">Back</a>
@@ -94,6 +112,5 @@
         $(document).ready(function() {
             $('.select-multiple').select2();
         });
-    </script>
     </script>
 @endsection

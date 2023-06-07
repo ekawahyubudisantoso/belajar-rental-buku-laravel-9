@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Cviebrock\EloquentSluggable\Services\SlugService;
 
 class BookController extends Controller
@@ -47,17 +48,11 @@ class BookController extends Controller
             'cover' => 'image|file|max:1024',
         ]);
 
-        $newName = null;
-
         if($request->file('image')){
-            $extension = $request->file('image')->getClientOriginalExtension();
-            $newName = $request->slug.'-'.now()->timestamp.'.'.$extension;
-            $request->file('image')->storeAs('cover', $newName);
+            $validated['cover'] = $request->file('image')->store('cover');
         }
 
-        $request['cover'] = $newName;
-
-        $book = Book::create($request->all());
+        $book = Book::create($validated);
         $book->categories()->sync($request->category_id);
 
         return redirect('/dashboard/books')->with('success', 'New Book has been added!');
@@ -98,9 +93,35 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $slug)
     {
-        //
+        $rules = [
+            'book_code' => 'required|max:255',
+            'title' => 'required|max:255',
+            'cover' => 'image|file|max:1024',
+        ];
+
+        if ($request->slug != $slug) {
+            $rules['slug'] = 'required|unique:books';
+        }
+
+        $validatedData = $request->validate($rules);
+
+        if($request->file('image')){
+            if ($request->oldImage) {
+                Storage::delete($request->oldImage);
+            }
+            $validatedData['cover'] = $request->file('image')->store('cover');
+        }
+
+        $book = Book::where('slug', $slug)->first();
+        $book->update($validatedData);
+
+        if ($request->category_id) {
+            $book->categories()->sync($request->category_id);
+        }
+
+        return redirect('/dashboard/books')->with('success', 'Book has been updated!');
     }
 
     /**
@@ -109,10 +130,47 @@ class BookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($slug)
     {
-        //
+        $sofdelBook = Book::where('slug', $slug)->first();
+        $sofdelBook->delete();
+
+        return redirect('/dashboard/books')->with('success', 'Book has been deleted!');
     }
+
+    public function deleted()
+    {
+        return view('dashboard.books.deleted', [
+            'books' => Book::onlyTrashed()->get()
+        ]);
+    }
+
+    public function restore($slug)
+    {
+        $restoreBook = Book::withTrashed()->where('slug', $slug)->first();
+        $restoreBook->restore();
+
+        return redirect('/dashboard/books')->with('success', 'Book has been restored!');
+    }
+
+    public function forceDelete($slug)
+    {
+        $forcdelBook = Book::withTrashed()->where('slug', $slug)->first();
+
+        if ($forcdelBook->cover) {
+            Storage::delete($forcdelBook->cover);
+        }
+        
+        if ($forcdelBook->categories()) {
+            $forcdelBook->categories()->detach();
+            $forcdelBook->categories()->sync([]);
+        }
+
+        $forcdelBook->forceDelete();
+
+        return redirect('/dashboard/books/deleted')->with('success', 'Book has been force deleted!');
+    }
+
 
     public function checkSlug(Request $request)
     {

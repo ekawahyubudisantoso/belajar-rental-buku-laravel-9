@@ -16,7 +16,7 @@
 
     <div class="table-responsive">
         <div class="d-flex justify-content-end mb-3">
-            <a href="/dashboard/books/deleted" class="btn btn-secondary">View deleted book</a>
+            <a href="/dashboard/books/deleted" class="btn btn-secondary me-1">View deleted book</a>
             <a href="/dashboard/books/create" class="btn btn-primary mr-3">Create new book</a>
         </div>
         <table class="table table-striped table-sm">
