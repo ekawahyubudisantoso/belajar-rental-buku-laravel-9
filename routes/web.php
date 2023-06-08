@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 
@@ -56,6 +57,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/categories/deleted', [CategoryController::class, 'deleted']);
     Route::get('/dashboard/categories/restore/{slug}', [CategoryController::class, 'restore']);
     Route::delete('/dashboard/categories/force-delete/{slug}', [CategoryController::class, 'forceDelete']);
+
+    //Users
+    Route::get('/dashboard/users', [UserController::class, 'index']);
+    Route::get('/dashboard/users/registered', [UserController::class, 'registered']);
+    Route::get('/dashboard/users/detail/{slug}', [UserController::class, 'show']);
+    Route::get('/dashboard/users/approve/{slug}', [UserController::class, 'approve']);
+    Route::delete('/dashboard/users/banned/{slug}', [UserController::class, 'destroy']);
+    Route::get('/dashboard/users/banned', [UserController::class, 'banned']);
+    Route::get('/dashboard/users/restore/{slug}', [UserController::class, 'restore']);
+    Route::delete('/dashboard/users/force-delete/{slug}', [UserController::class, 'forceDelete']);
 
     // Route::resource('/dashboard/categories', CategoryController::class);
 
