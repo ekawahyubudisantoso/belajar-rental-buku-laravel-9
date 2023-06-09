@@ -2,7 +2,7 @@
 
 @section('container')
     <div class="row justify-content-center">
-        <div class="col-md-5">
+        <div class="col-lg-5">
 
             @if (session()->has('success'))
                 <div class="alert alert-success alert-dismissible fade show" role="alert">

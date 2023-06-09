@@ -37,11 +37,12 @@ class AuthController extends Controller
             }
 
             if(Auth::user()->role_id == 1){
+                $request->session()->regenerate();
                 return redirect()->intended('/dashboard');
+            }else{
+                $request->session()->regenerate();
+                return redirect()->intended('/dashboard/profile');
             }
-
-            // $request->session()->regenerate();
-
         }
 
         return back()->with('loginError', 'Login failed!');
