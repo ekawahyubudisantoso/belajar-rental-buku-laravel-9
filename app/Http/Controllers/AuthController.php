@@ -41,7 +41,7 @@ class AuthController extends Controller
                 return redirect()->intended('/dashboard');
             }else{
                 $request->session()->regenerate();
-                return redirect()->intended('/dashboard/profile');
+                return redirect()->intended('/');
             }
         }
 

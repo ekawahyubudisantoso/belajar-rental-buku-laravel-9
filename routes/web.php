@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 
@@ -68,7 +69,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/dashboard/users/banned/{slug}', [UserController::class, 'destroy']);
         Route::get('/dashboard/users/banned', [UserController::class, 'banned']);
         Route::get('/dashboard/users/restore/{slug}', [UserController::class, 'restore']);
-        Route::delete('/dashboard/users/force-delete/{slug}', [UserController::class, 'forceDelete']); 
+        Route::delete('/dashboard/users/force-delete/{slug}', [UserController::class, 'forceDelete']);
+
+        //BookRent
+        Route::get('/dashboard/book-rents', [BookRentController::class, 'index']);
+        Route::post('/dashboard/book-rents', [BookRentController::class, 'store']);
     });
 
     // Route::resource('/dashboard/categories', CategoryController::class);
