@@ -36,9 +36,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/users*') ? 'active' : '' }}" href="/dashboard/users">
-              <span data-feather="user" class="align-text-bottom"></span>
-              Users
+            <a class="nav-link {{ Request::is('dashboard/rent-logs*') ? 'active' : '' }}" href="/dashboard/rent-logs">
+              <span data-feather="clock" class="align-text-bottom"></span>
+              Rent Logs
             </a>
           </li>
         </ul>
@@ -48,7 +48,13 @@
       </h6>
       <ul class="nav flex-column">
         <li class="nav-item">
-          <a class="nav-link {{ Request::is('dashboard/profile*') ? 'active' : '' }}" aria-current="page" href="/dashboard/categories">
+          <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="/dashboard">
+            <span data-feather="home" class="align-text-bottom"></span>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {{ Request::is('dashboard/profile*') ? 'active' : '' }}" aria-current="page" href="/dashboard/profiles">
             <span data-feather="user" class="align-text-bottom"></span>
             Profile
           </a>

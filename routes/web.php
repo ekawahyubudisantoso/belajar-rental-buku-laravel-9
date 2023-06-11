@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PublicController;
+use App\Http\Controllers\RentLogController;
 use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
@@ -32,10 +33,11 @@ Route::post('/register', [AuthController::class, 'registerProcess']);
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard/profile', [ProfileController::class, 'index']);
+    Route::get('/dashboard/profiles', [UserController::class, 'profile']);
+    
+    Route::get('/dashboard', [DashboardController::class, 'index']);
     
     Route::middleware(['is_admin'])->group(function () {
-        Route::get('/dashboard', [DashboardController::class, 'index']);
 
         //Books
         Route::get('/dashboard/books/checkSlug', [BookController::class, 'checkSlug']);
@@ -74,6 +76,9 @@ Route::middleware('auth')->group(function () {
         //BookRent
         Route::get('/dashboard/book-rents', [BookRentController::class, 'index']);
         Route::post('/dashboard/book-rents', [BookRentController::class, 'store']);
+
+        //RentLogs
+        Route::get('/dashboard/rent-logs', [RentLogController::class, 'index']);
     });
 
     // Route::resource('/dashboard/categories', CategoryController::class);

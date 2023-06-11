@@ -18,7 +18,7 @@ class IsAdmin
     public function handle(Request $request, Closure $next)
     {
         if(Auth::user()->role_id != 1){
-            return redirect('books');
+            abort(403);
         }
 
         return $next($request);
