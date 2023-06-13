@@ -35,27 +35,7 @@
         </div>
         <h3 class="mb-8">#Rent Logs</h3>
         <div class="table-responsive">
-            <table class="table table-striped table-sm">
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">User</th>
-                        <th scope="col">Book Title</th>
-                        <th scope="col">Rent Date</th>
-                        <th scope="col">Return Date</th>
-                        <th scope="col">Actual Return Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tbody>
-            </table>
+            <x-rent-log-table :rentlog='$rentlogs' />
         </div>
     @else
         

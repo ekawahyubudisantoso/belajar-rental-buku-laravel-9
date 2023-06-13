@@ -9,6 +9,7 @@ use App\Http\Controllers\RentLogController;
 use App\Http\Controllers\BookRentController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BookReturnController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,10 @@ Route::middleware('auth')->group(function () {
 
         //RentLogs
         Route::get('/dashboard/rent-logs', [RentLogController::class, 'index']);
+
+        //BookReturn
+        Route::get('/dashboard/book-return', [BookReturnController::class, 'index']);
+        Route::post('/dashboard/book-return', [BookReturnController::class, 'store']);
     });
 
     // Route::resource('/dashboard/categories', CategoryController::class);

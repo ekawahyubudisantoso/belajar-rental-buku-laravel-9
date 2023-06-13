@@ -62,7 +62,7 @@
                 </select>
             </div>
             
-            <a href="/dashboard/categories" class="btn btn-danger">Back</a>
+            <a href="/dashboard/books" class="btn btn-danger">Back</a>
             <button type="submit" class="btn btn-primary">Create book</button>
         </form>
     </div>

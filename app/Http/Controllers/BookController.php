@@ -18,7 +18,7 @@ class BookController extends Controller
     public function index()
     {
         return view('dashboard.books.index', [
-            'books' => Book::all()
+            'books' => Book::with('categories')->get()
         ]);
     }
 

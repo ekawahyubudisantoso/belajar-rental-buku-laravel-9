@@ -46,15 +46,17 @@ class BookRentController extends Controller
             }else{
                 try {
                     DB::beginTransaction();
+                    
                     //process insert to rent_logs table
                     RentLogs::create($request->all());
                     //process update book status
                     $book = Book::findOrFail($request->book_id);
                     $book->status = 'not available';
                     $book->save();
+
                     DB::commit();
 
-                    Session::flash('message', 'Rent book is successfuly');
+                    Session::flash('message', 'Rent book is successfully');
                     Session::flash('alert-class', 'alert-success');
                     
                     return redirect('/dashboard/book-rents');
